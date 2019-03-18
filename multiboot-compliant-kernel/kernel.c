@@ -206,9 +206,17 @@ static void itoa (char *buf, int base, int d)
     }
 }
 
+static void uart(int c)
+{
+  if (c == '\n')
+    uart(c);
+  outb(0x3f8, c);
+}
+
 /* Put the character C on the screen. */
 static void putchar (int c)
 {
+  uart(c);
     if (c == '\n' || c == '\r')
     {
 newline:
