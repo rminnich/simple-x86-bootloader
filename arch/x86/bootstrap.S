@@ -8,7 +8,7 @@
 
     .global boot_drive_nb
 boot_drive_nb:
-    .byte 1
+    .byte 0 // 1
 
     .section .text
 

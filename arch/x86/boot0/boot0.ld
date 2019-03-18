@@ -17,12 +17,12 @@ SECTIONS {
         *(.rodata*);
     }
 
-    .bss : {
-        *(.bss*)
-    }
-
     .data : {
         *(.data*)
+    }
+
+    .bss : {
+        *(.bss*)
     }
 
     .zeroing : {

@@ -12,7 +12,7 @@ msg_please_reboot:
 
     .section .bss
 boot_drv:
-    .byte 1
+//    .byte 1
 
     .section .data
 #ifdef BOOTLOADER_PROTECTED_MODE_ENABLED
