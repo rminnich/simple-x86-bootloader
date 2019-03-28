@@ -301,7 +301,7 @@ static void dumprsdt(void *v)
   uint32_t i;
   struct ACPISDTHeader *h = v;
   uint32_t *p = (uint32_t*)&h[1];
-  printf("dumprsdt: table pointers are %x: \n", p);
+  printf("dumprsdt: %d table pointers at %x: \n", h->Length, p);
   for (i = 0; i < h->Length; i++, p++)
     {
 	    if (! *p)
@@ -314,12 +314,18 @@ static void dumprsdt(void *v)
 }
 static void dumpxsdt(void *v)
 {
-  uint64_t i;
+  uint64_t tlen, i;
   struct ACPISDTHeader *h = v;
-  uint64_t p = (uint32_t)&h[1];
-  for (i = 0; i < h->Length; i++)
+  uint64_t *p = (uint64_t*)(v + 36);
+  tlen = (h->Length - 36)/sizeof(*p);
+  printf("dumpxsdt: xsdt at %x: %d table pointers at %x: \n", v, tlen, (uint32_t)p);
+  for (i = 0; i < tlen; i++)
+	  printf("[%d]: %x", (uint32_t)i, (uint32_t)p[i]);
+  for (i = 0; i < tlen; i++, p++)
     {
-      dumpacpi((void *)(uint32_t)p);
+  	printf("[%d]: %x: ", (uint32_t)i, (uint32_t)p);
+      dumpacpi((void *)(uint32_t)*p);
+      printf("\n");
     }
 
 }
